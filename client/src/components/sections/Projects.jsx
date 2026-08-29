@@ -8,7 +8,7 @@ export function Projects() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/projects")
+    fetch("https://portfolio-nitin-pi-ten.vercel.app/api/projects")
       .then((res) => res.json())
       .then((data) => {
         setProjects(data);
