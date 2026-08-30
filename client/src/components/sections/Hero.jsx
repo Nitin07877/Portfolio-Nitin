@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/Button";
 import { Container } from "../ui/Container";
-import { TypewriterText } from "../ui/Typewritertext";
+import { TypewriterText } from "../ui/TypewriterText";
 
 export function Hero() {
   // Tracks raw pixel scroll position of the whole page
@@ -31,6 +31,19 @@ export function Hero() {
         <div className="flex flex-col-reverse md:flex-row items-center gap-12">
           {/* Text content */}
           <div className="flex-1">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 mb-5 text-sm text-text-secondary"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-2 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-2" />
+              </span>
+              Currently exploring AI-powered applications
+            </motion.div>
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -71,7 +84,7 @@ export function Hero() {
                 About Me
               </Button>
               <Button variant="secondary" href="#contact">
-                Hire Me
+                Get in Touch
               </Button>
             </motion.div>
           </div>
