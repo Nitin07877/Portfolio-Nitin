@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/Button";
 import { Container } from "../ui/Container";
-import { TypewriterText } from "../ui/TypewriterText";
+import { TypewriterText } from "../ui/Typewritertext";
 
 export function Hero() {
   // Tracks raw pixel scroll position of the whole page
