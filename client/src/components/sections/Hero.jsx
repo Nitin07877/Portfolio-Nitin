@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "../ui/Button";
 import { Container } from "../ui/Container";
-
+import { TypewriterText } from "../ui/TypewriterText";
 export function Hero() {
   // Tracks raw pixel scroll position of the whole page
   const { scrollY } = useScroll();
@@ -39,15 +39,15 @@ export function Hero() {
             </motion.p>
 
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-5xl sm:text-7xl font-bold tracking-tight"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-5xl sm:text-7xl font-bold tracking-tight min-h-[1.2em]"
             >
-              Full-Stack{" "}
-              <span className="bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent">
-                Developer
-              </span>
+                <TypewriterText
+                 words={["Full-Stack Developer", "React Developer", "Problem Solver"]}
+                    className="bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent"
+                />
             </motion.h1>
 
             <motion.p
