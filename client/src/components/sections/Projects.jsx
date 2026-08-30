@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { GlowCard } from "../ui/GlowCard";
 import { Container } from "../ui/Container";
 
@@ -42,44 +43,61 @@ export function Projects() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
               >
-                <GlowCard className="h-full">
-                  <h3 className="text-xl font-semibold">{project.title}</h3>
-                  <p className="text-text-secondary mt-2 text-sm">
-                    {project.description}
-                  </p>
-                  {project.tech_stack && (
-                    <div className="flex flex-wrap gap-2 mt-4">
-                      {project.tech_stack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="text-xs px-3 py-1 rounded-full bg-surface-hover border border-border text-text-secondary"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
+                <GlowCard className="h-full !p-0 overflow-hidden">
+                  {/* Project image, links to detail page */}
+                  {project.image && (
+                    <Link to={`/projects/${project.id}`}>
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-40 object-cover object-top border-b border-border"
+                      />
+                    </Link>
                   )}
-                  <div className="flex gap-4 mt-4">
-                    {project.github_link && (
-                      <a
-                        href={project.github_link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-text-secondary text-sm font-medium hover:text-text-primary transition-colors"
-                      >
-                        GitHub →
-                      </a>
+
+                  <div className="p-6">
+                    <Link to={`/projects/${project.id}`}>
+                      <h3 className="text-xl font-semibold hover:text-accent-2 transition-colors">
+                        {project.title}
+                      </h3>
+                    </Link>
+                    <p className="text-text-secondary mt-2 text-sm">
+                      {project.description}
+                    </p>
+                    {project.tech_stack && (
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        {project.tech_stack.map((tech) => (
+                          <span
+                            key={tech}
+                            className="text-xs px-3 py-1 rounded-full bg-surface-hover border border-border text-text-secondary"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     )}
-                    {project.link && (
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-accent-2 text-sm font-medium hover:underline"
-                      >
-                        Live Demo →
-                      </a>
-                    )}
+                    <div className="flex gap-4 mt-4">
+                      {project.github_link && (
+                        <a
+                          href={project.github_link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-text-secondary text-sm font-medium hover:text-text-primary transition-colors"
+                        >
+                          GitHub →
+                        </a>
+                      )}
+                      {project.link && (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-accent-2 text-sm font-medium hover:underline"
+                        >
+                          Live Demo →
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </GlowCard>
               </motion.div>

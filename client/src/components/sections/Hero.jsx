@@ -1,7 +1,9 @@
 import { motion, useScroll, useTransform } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "../ui/Button";
 import { Container } from "../ui/Container";
 import { TypewriterText } from "../ui/TypewriterText";
+
 export function Hero() {
   // Tracks raw pixel scroll position of the whole page
   const { scrollY } = useScroll();
@@ -39,15 +41,15 @@ export function Hero() {
             </motion.p>
 
             <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-5xl sm:text-7xl font-bold tracking-tight min-h-[1.2em]"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-5xl sm:text-7xl font-bold tracking-tight min-h-[1.2em]"
             >
-                <TypewriterText
-                 words={["Full-Stack Developer", "React Developer", "Problem Solver"]}
-                    className="bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent"
-                />
+              <TypewriterText
+                words={["Full-Stack Developer", "React Developer", "Problem Solver"]}
+                className="bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent"
+              />
             </motion.h1>
 
             <motion.p
@@ -69,25 +71,34 @@ export function Hero() {
                 About Me
               </Button>
               <Button variant="secondary" href="#contact">
-                Get in Touch
+                Hire Me
               </Button>
             </motion.div>
           </div>
 
-          {/* Profile photo */}
+          {/* Profile photo — click to go to About */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.15 }}
             className="shrink-0"
           >
-            <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden border border-border bg-surface">
+            <Link
+              to="/about"
+              className="group relative block w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden border border-border bg-surface"
+            >
               <img
                 src="/profile.jpg"
                 alt="Nitin Kumar"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-            </div>
+              {/* Hover overlay cue */}
+              <div className="absolute inset-0 bg-background/0 group-hover:bg-background/60 transition-colors duration-300 flex items-center justify-center">
+                <span className="text-text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2">
+                  About Me →
+                </span>
+              </div>
+            </Link>
           </motion.div>
         </div>
       </Container>
