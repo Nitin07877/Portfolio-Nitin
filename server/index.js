@@ -39,7 +39,6 @@ app.get("/api/db-test", async (req, res) => {
   }
 });
 
-// New: contact form submission
 app.post("/api/contact", async (req, res) => {
   const { name, email, message } = req.body;
 
@@ -48,16 +47,14 @@ app.post("/api/contact", async (req, res) => {
   }
 
   try {
-    // 1. Save to database first — so we never lose a message even if email fails
     await pool.query(
       "INSERT INTO messages (name, email, message) VALUES ($1, $2, $3)",
       [name, email, message]
     );
 
-    // 2. Send yourself an email via Resend
     await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
-      to: "nitinchaudhary12334@gmail.com", // replace with your actual email
+      to: "nitinchaudhary12334@gmail.com",
       subject: `New message from ${name}`,
       html: `
         <h3>New contact form submission</h3>
@@ -74,5 +71,16 @@ app.post("/api/contact", async (req, res) => {
     res.status(500).json({ success: false, error: err.message });
   }
 });
+
+const PORT = process.env.PORT || 3000;
+
+// Only start a persistent server when running locally (node index.js directly).
+// On Vercel, this file is imported as a serverless function instead, so app.listen
+// never runs there — Vercel handles incoming requests differently.
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server listening on http://localhost:${PORT}`);
+  });
+}
 
 module.exports = app;
