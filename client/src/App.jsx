@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { ScrollProgress } from "./components/ui/ScrollProgress";
 import { ScrollToTop } from "./components/ui/ScrollToTop";
 import { BackToTop } from "./components/ui/BackToTop";
+import { ChatWidget } from "./components/ui/ChatWidget";
 import { Navbar } from "./components/sections/Navbar";
 import { Footer } from "./components/sections/Footer";
 import { Home } from "./pages/Home";
@@ -33,6 +34,7 @@ function AppContent() {
         </AnimatePresence>
         <Footer />
         <BackToTop />
+        <ChatWidget />
       </div>
       <Analytics />
     </>
