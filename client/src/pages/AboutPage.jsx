@@ -13,7 +13,7 @@ export function AboutPage() {
         <Education />
         <Skills />
         <Certifications />
-        <GithubActivity />
+        
       </div>
     </PageTransition>
   );
