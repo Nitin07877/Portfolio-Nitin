@@ -3,15 +3,18 @@ import { Education } from "../components/sections/Education";
 import { Skills } from "../components/sections/Skills";
 import { Certifications } from "../components/sections/Certifications";
 
+import { PageTransition } from "../components/ui/PageTransition";
 
 export function AboutPage() {
   return (
-    <div className="pt-16">
-      <About />
-      <Education />
-      <Skills />
-      <Certifications />
-      
-    </div>
+    <PageTransition>
+      <div className="pt-16">
+        <About />
+        <Education />
+        <Skills />
+        <Certifications />
+        <GithubActivity />
+      </div>
+    </PageTransition>
   );
 }

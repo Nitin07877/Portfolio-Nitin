@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FiArrowLeft, FiGithub, FiExternalLink, FiCheck } from "react-icons/fi";
 import { Container } from "../components/ui/Container";
+import { PageTransition } from "../components/ui/PageTransition";
 import { Button } from "../components/ui/Button";
 import { GlowCard } from "../components/ui/GlowCard";
 
@@ -90,13 +91,14 @@ export function ProjectDetailPage() {
   const highlights = projectHighlights[project.title] || [];
 
   return (
-    <div className="pt-32 pb-24">
-      <Container>
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-        >
+    <PageTransition>
+      <div className="pt-32 pb-24">
+        <Container>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
           <Link
             to="/#projects"
             className="inline-flex items-center gap-2 text-text-secondary hover:text-text-primary text-sm mb-8 transition-colors"
@@ -177,6 +179,7 @@ export function ProjectDetailPage() {
           </div>
         </motion.div>
       </Container>
-    </div>
+      </div>
+    </PageTransition>
   );
 }
