@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { GlowCard } from "../ui/GlowCard";
 import { Container } from "../ui/Container";
+import { ProjectCardSkeleton } from "../ui/Skeleton";
 
 export function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState("All");
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/projects`)
@@ -18,6 +20,18 @@ export function Projects() {
       .catch(() => setLoading(false));
   }, []);
 
+  // Build a unique, sorted list of every tech tag across all projects, for the filter buttons
+  const allTags = useMemo(() => {
+    const tagSet = new Set();
+    projects.forEach((p) => p.tech_stack?.forEach((t) => tagSet.add(t)));
+    return ["All", ...Array.from(tagSet).sort()];
+  }, [projects]);
+
+  const filteredProjects = useMemo(() => {
+    if (activeFilter === "All") return projects;
+    return projects.filter((p) => p.tech_stack?.includes(activeFilter));
+  }, [projects, activeFilter]);
+
   return (
     <section id="projects" className="py-24 sm:py-32">
       <Container>
@@ -26,25 +40,46 @@ export function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-4xl font-bold mb-12"
+          className="text-4xl font-bold mb-8"
         >
           Projects
         </motion.h2>
 
+        {/* Filter buttons */}
+        {!loading && (
+          <div className="flex flex-wrap gap-2 mb-10">
+            {allTags.map((tag) => (
+              <button
+                key={tag}
+                onClick={() => setActiveFilter(tag)}
+                className={`text-sm px-4 py-1.5 rounded-full border transition-colors ${
+                  activeFilter === tag
+                    ? "bg-accent/20 border-accent text-text-primary"
+                    : "border-border text-text-secondary hover:text-text-primary hover:border-border-strong"
+                }`}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        )}
+
         {loading ? (
-          <p className="text-text-secondary">Loading projects...</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <ProjectCardSkeleton key={i} />
+            ))}
+          </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project, i) => (
+            {filteredProjects.map((project, i) => (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.06 }}
               >
                 <GlowCard className="h-full !p-0 overflow-hidden">
-                  {/* Project image, links to detail page */}
                   {project.image && (
                     <Link to={`/projects/${project.id}`}>
                       <img

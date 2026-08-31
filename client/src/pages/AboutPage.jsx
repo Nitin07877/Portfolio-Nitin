@@ -3,6 +3,7 @@ import { Education } from "../components/sections/Education";
 import { Skills } from "../components/sections/Skills";
 import { Certifications } from "../components/sections/Certifications";
 
+
 export function AboutPage() {
   return (
     <div className="pt-16">
@@ -10,6 +11,7 @@ export function AboutPage() {
       <Education />
       <Skills />
       <Certifications />
+      
     </div>
   );
 }
